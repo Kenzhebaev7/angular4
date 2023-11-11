@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RegistrationFormComponent } from './registration-form/registration-form.component';
-import { UserListComponent } from './user-list/user-list-component.component';
-import { EditUserComponent } from './edit-user/edit-user.component';
+import { RegistrationFormComponent } from './components/registration-form/registration-form.component';
+import { UserListComponent } from './components/user-list/user-list-component.component';
+import { EditUserComponent } from './components/edit-user/edit-user.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/registration-form', pathMatch: 'full' },

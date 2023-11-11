@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student's List</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</head>
+<body>
+    <h1 style="margin-left: 50px; margin-top: 50px">Student's List</h1>
+    <h5 style="margin-left: 50px; margin-top: 50px"><a href="/add-students.html" style="text-decoration: none; color: darkblue">Add Students</a></h5>
+<div class="container" style="margin: 50px">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>GPA</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody id="studentList">
+        </tbody>
+    </table>
+</div>
+    <script>
+        async function fetchStudents() {
+            try {
+                const response = await fetch('/students');
+                if (response.ok) {
+                    const students = await response.json();
+                    const studentList = document.getElementById('studentList');
+
+                    students.forEach(student => {
+                        const row = document.createElement('tr');
+                        const nameCell = document.createElement('td');
+                        nameCell.textContent = student.name;
+                        const surnameCell = document.createElement('td');
+                        surnameCell.textContent = student.surname;
+                        const gpaCell = document.createElement('td');
+                        gpaCell.textContent = student.gpa;
+
+                        const deleteButtonCell = document.createElement('td');
+                        const deleteButton = document.createElement('button');
+                        deleteButton.className = 'btn btn-outline-danger';
+                        deleteButton.textContent = 'Delete';
+                        deleteButton.addEventListener('click', () => {
+                            deleteStudent(student._id);
+                        });
+                        deleteButtonCell.appendChild(deleteButton);
+
+                        row.appendChild(nameCell);
+                        row.appendChild(surnameCell);
+                        row.appendChild(gpaCell);
+                        row.appendChild(deleteButtonCell);
+
+
+                        studentList.appendChild(row);
+                    });
+                } else {
+                    console.error('Show Students list ERROR');
+                }
+            } catch (error) {
+                console.error('ERROR:', error);
+            }
+        }
+async function deleteStudent(studentId) {
+    try {
+        console.log(`Attempt to delete student with ID: ${studentId}`);
+        const response = await fetch(`/students/${studentId}`, {
+            method: 'DELETE',
+        });
+        if (response.ok) {
+            console.log('Student successfully deleted');
+            location.reload();
+        } else {
+            console.error('Error deleting student');
+        }
+
+    } catch (error) {
+        console.error('Error sending request:', error);
+    }
+}
+
+        window.addEventListener('load', fetchStudents);
+    </script>
+</body>
+</html>

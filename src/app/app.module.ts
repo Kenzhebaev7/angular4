@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { RegistrationFormComponent } from './registration-form/registration-form.component';
-import { UserListComponent } from './user-list/user-list-component.component';
-import { EditUserComponent } from './edit-user/edit-user.component';
+import { RegistrationFormComponent } from './components/registration-form/registration-form.component';
+import { UserListComponent } from './components/user-list/user-list-component.component';
+import { EditUserComponent } from './components/edit-user/edit-user.component';
+import {HttpClientModule} from "@angular/common/http";
+import {UserService} from "./components/user-list/user-service";
 
 @NgModule({
   declarations: [
@@ -20,10 +22,12 @@ import { EditUserComponent } from './edit-user/edit-user.component';
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

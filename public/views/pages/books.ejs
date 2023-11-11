@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include('../partials/head'); %>
+</head>
+<body>
+    <%- include('../partials/header'); %>
+    <div class="container" style="margin-bottom: 50px; margin-top: 50px; width: 500px">
+        <form action="/books/search" method="get">
+            <div class="form-group">
+                <label for="title">Book name</label>
+                <input type="text" class="form-control" id="title" name="title" placeholder="Enter book name">
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+    </div>
+
+
+
+    <div class="container">
+        <h1>Book List</h1>
+        <p><a class="nav-link" href="/books/add">Add book</a></p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Book Name</th>
+                    <th>Author</th>
+                    <th>Publication Year</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% books.forEach(book => { %>
+                    <tr>
+                        <td><%= book.name %></td>
+                        <td><%= book.author %></td>
+                        <td><%= book.publicationYear %></td>
+                        <td>
+                            <a href="/books/edit/<%= book._id %>" class="btn btn-primary">Edit</a>
+                            <form action="/books/delete/<%= book._id %>" method="post" style="display: inline;">
+                                <input type="hidden" name="_method" value="delete">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+    <%- include('../partials/footer'); %>
+</body>
+</html>

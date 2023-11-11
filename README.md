@@ -1,5 +1,12 @@
 # StackMean
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.1.
+This project was generated with [Chat GPT](https://t.me/coldNau) version 7.2.9.2.
 
-## Mita Sila
+## 
+
+<img src="src/assets/img.png">
+
+## AYAN `gay`
+
+
+
